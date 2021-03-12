@@ -1,11 +1,14 @@
 import RPi.GPIO as GPIO
 import time
+import zmq
 
 GPIO.setmode(GPIO.BOARD)
 control_pins = [7,11,13,15]
 light_pin = 5
-
 day_flag = 0
+context = zmq.Context()
+socket = context.socket(zmq.REP)
+socket.bind("tcp://*:5555")
 
 def rc_time(light_pin):
     count = 0
@@ -66,37 +69,57 @@ def close_b():
 
 first_flag = 0
 count = 0
+auto_control = 0
 
 try:
     while True:
-        if first_flag == 0:
-          first_flag = 1
-          time.sleep(5)
-          continue
-        light = rc_time(light_pin)
-        print(light)
-        if light > 1700 and day_flag == 1:
-            print("Night")
-            count += 1
-            if count == 5:
-              print("Closing")
-              close_b()
-              day_flag = 0
+        
+        # Waiting here on every loop
+        # Setting autocontrol on gets stuck here
+        message = socket.recv_string()
+        print("Received request: %s" % message)
+        socket.send(b"hello")
+        
+        if message == "autocontrol_off":
+          auto_control = 0
+        elif message == "autocontrol_on":
+          auto_control = 1
+          print("HERE")
+          
+        if auto_control == 0 and message == "open":
+          open_b()
+        elif auto_control == 0 and message == "close":
+          close_b()
+  
+        if auto_control == 1:
+          if first_flag == 0:
+            first_flag = 1
+            time.sleep(5)
+            continue
+          light = rc_time(light_pin)
+          print(light)
+          if light > 1700 and day_flag == 1:
+              print("Night")
+              count += 1
+              if count == 5:
+                print("Closing")
+                close_b()
+                day_flag = 0
+                count = 0
+          elif light < 1500 and day_flag == 0:
+              print("Day")
+              count += 1
+              if count == 5:
+                print("Opening")
+                open_b()
+                day_flag = 1
+                count = 0
+          elif light > 1700 and day_flag == 0:
+            if count != 0:
               count = 0
-        elif light < 1500 and day_flag == 0:
-            print("Day")
-            count += 1
-            if count == 5:
-              print("Opening")
-              open_b()
-              day_flag = 1
+          elif light < 1500 and day_flag == 1:
+            if count != 0:
               count = 0
-        elif light > 1700 and day_flag == 0:
-          if count != 0:
-            count = 0
-        elif light < 1500 and day_flag == 1:
-          if count != 0:
-            count = 0
         
         time.sleep(2)
 except KeyboardInterrupt:
