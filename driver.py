@@ -70,6 +70,7 @@ def close_b():
 first_flag = 0
 count = 0
 auto_control = 0
+opened = True
 
 try:
     while True:
@@ -82,16 +83,19 @@ try:
         
         if message == "autocontrol_off":
           auto_control = 0
+          first_flag = 0
         elif message == "autocontrol_on":
           auto_control = 1
-          print("HERE")
           
-        if auto_control == 0 and message == "open":
+        if auto_control == 0 and message == "open" and not opened:
           open_b()
-        elif auto_control == 0 and message == "close":
+          opened = True
+        elif auto_control == 0 and message == "close" and opened:
           close_b()
+          opened = False
   
         if auto_control == 1:
+          print("HERE")
           if first_flag == 0:
             first_flag = 1
             time.sleep(5)
@@ -106,6 +110,7 @@ try:
                 close_b()
                 day_flag = 0
                 count = 0
+                opened = False
           elif light < 1500 and day_flag == 0:
               print("Day")
               count += 1
@@ -114,6 +119,7 @@ try:
                 open_b()
                 day_flag = 1
                 count = 0
+                opened = True
           elif light > 1700 and day_flag == 0:
             if count != 0:
               count = 0
@@ -122,12 +128,12 @@ try:
               count = 0
         
         time.sleep(2)
+        if opened:
+          print("Blinds are open")
+        else:
+          print("Blinds are closed")
 except KeyboardInterrupt:
     pass
 finally:
     GPIO.cleanup()
-
-
-
     
-
