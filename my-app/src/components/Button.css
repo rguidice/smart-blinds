@@ -1,0 +1,40 @@
+.autocontroloff{
+  user-select: none;
+  height: 2rem;
+  width: 8rem;
+  background: #C0C0C0;
+  color: #000000;
+  border-radius: 10px;
+  border: 0.7rem solid #C0C0C0;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 1px 2px #333333;
+}
+.autocontroloff:hover{
+  background-color: #B3B3B3;
+  border: 0.7rem solid #B3B3B3;
+  cursor: pointer;
+  box-shadow: 0px 0px 6px 2px #333333;
+}
+.autocontrolon{
+  user-select: none;
+  height: 2rem;
+  width: 8rem;
+  background: #000000;
+  color: #C0C0C0;
+  border-radius: 10px;
+  border: 0.7rem solid #000000;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 1px 2px #222222;
+}
+.autocontrolon:hover{
+  background-color: #111111;
+  border: 0.7rem solid #111111;
+  cursor: pointer;
+  box-shadow: 0px 0px 6px 2px #222222;
+}

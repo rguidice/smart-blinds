@@ -1,0 +1,101 @@
+.containerday{
+  position: relative;
+  transition: background-image 2s;
+  background-image:url("../resources/daysky.png");
+  width: 26rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: center;
+}
+.containernight{
+  position: relative;
+  transition: background-image 2s;
+  background-image:url("../resources/nightsky.png");
+  width: 26rem;
+  height: 3rem;
+  border-radius: 10px;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: center;
+}
+.containerdisable{
+  position: relative;
+  background-color: #222222;
+  width: 26rem;
+  height: 3rem;
+  border-radius: 10px;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  margin-bottom: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.nightbutton{
+  text-align: center;
+  user-select: none;
+  transition: right 2s, background 2s, border 2s;
+  position: absolute;
+  right: 1.5%;
+  height: 37%;
+  width: 20%;
+  background: #2f3640;
+  border-radius: 10px;
+  border: 0.7rem solid #2f3640;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 3px 1px #88888844;
+}
+.nightbutton:hover{
+  cursor:pointer;
+  background: #272E38;
+  border: 0.7rem solid #272E38;
+}
+.daybutton{
+  text-align: center;
+  user-select: none;
+  transition: right 2s, background 2s, border 2s;
+  position: absolute;
+  right: 73.2%;
+  height: 37%;
+  width: 20%;
+  background: #5385c9;
+  border-radius: 10px;
+  border: 0.7rem solid #5385c9;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 3px 1px #00000044;
+}
+.daybutton:hover{
+  cursor:pointer;
+  background: #4B7DC1;
+  border: 0.7rem solid #4B7DC1;
+}
+
+.disablebutton{
+  user-select: none;
+  text-align: center;
+  transition: right 2s, background 2s, border 2s;
+  position: absolute;
+  right: 38%;
+  height: 37%;
+  width: 20%;
+  background: #444444;
+  border-radius: 10px;
+  border: 0.7rem solid #444444;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 3px 1px #00000044;
+}
