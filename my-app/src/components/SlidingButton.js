@@ -1,16 +1,11 @@
 import './SlidingButton.css'
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-  function get_state(){
-    var ret = fetch('/get_state').then(res => res.json()).then(data => {
-        inside=data.state
-        //Line below has correct state. cannot view outside of promise though, research about promises
-        console.log("hi from inside", inside);
-        return inside;
-      });
-      console.log("go home from outside", ret);
-      console.log("FRICK", inside);
-    return inside;
+  async function get_state(){
+    const response = await fetch('/get_state')
+    const lol = await response.json();
+    console.log(lol, "HIHIHIHIH")
+    return lol;
   };
   function open(){
     fetch('/open').then(res => res.json());
@@ -20,20 +15,43 @@ import React, { useState } from "react";
   };
 
 
+  const useFetch = () => {
+    const [value, setValue] = useState("")
+    useEffect(
+      async () => {
+        const response = await fetch('/get_state');
+        const data = await response.json();
+        setValue(data)
+      },
+      []
+    );
+    return value;
+  }
 
-var inside = false;
 function SlidingButton({autoControl}) {
-  const [isActive, setActive] = useState(get_state());
+  //const [isActive, setActive] = useState(get_state);
+  const state = useFetch();
+  console.log(state)
+  const [isActive, setActive] = useState(state);
+  useEffect(
+    () => {
+      console.log("inside effect");
+      setActive(state);
+    },
+    [state]
+  );
+  const onChange = event => {
+    setActive(event.target.value);
+  };
+  console.log(isActive, "adskfl")
   const toggleClass = () => {
     isActive ? open() : closee();
     setActive(!isActive);
   };
 
-
   
   return (
     <div className={  autoControl ? 'containerdisable' : (isActive ? 'containernight':'containerday')}>
-    {console.log(isActive, "ADSFADSFASDFASDFADSFA")}
       <div className={autoControl ? 'disablebutton'    : (isActive ? 'nightbutton':'daybutton')  }
            onClick={autoControl ? null : toggleClass }>
           {autoControl ? 'Under Autocontrol': isActive ? "Open Blinds":"Close Blinds"}

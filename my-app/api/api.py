@@ -55,6 +55,12 @@ def rc_time(light_pin):
 		count += 1
 	return count * 10
 
+def read():
+  f = open("state", "r")
+  value = f.read()
+  print(value)
+  f.close()
+
 @app.route('/time')
 def get_current_time():
 	print("HERE IN TIME")
@@ -63,41 +69,48 @@ def get_current_time():
 @app.route('/open')
 def open_b():
   f = open("state", "w")
-  f.write("1")
+  f.write("0")
   f.close()
-  for i in range(500):
+  for i in range(1700):
     for halfstep in range(8):
       for pin in range(4):
         GPIO.output(control_pins[pin], halfstep_seq[halfstep][pin])
-      time.sleep(0.001)
+      time.sleep(0.0007)
+  read()
   return jsonify({})
 
 @app.route('/close')    
 def close_b():
   f = open("state", "w")
-  f.write("0")
+  f.write("1")
   f.close()
-  for i in range(500):
+  for i in range(1700):
     for halfstep in range(8):
       for pin in range(4):
         GPIO.output(control_pins[pin], halfstep_seq_close[halfstep][pin])
-      time.sleep(0.001)
+      time.sleep(0.0007)
+  read()
   return jsonify({})
       
 @app.route('/get_state')    
 def get_state():
 	f = open("state", "r")
-	#print(f.read(), "hi")
-	ret = False
-	if f.read() == "1":
+	ret = False;
+	value = int(f.read())
+	print(value == 1)
+	if value == 1:
 		ret = True
 	f.close()
-	print(ret)
-	return jsonify(state=ret)
+	print(ret, "HI")
+	read()
+	return jsonify(ret)
 	
 @app.route('/autocontrol')
 def autocontrol():
-	day_flag = 0
+	f = open("state", "r")
+	value = int(f.read())
+	f.close()
+	day_flag = not value
 	count = 0
 	f = open("autocontrol_state", "r")
 	value = int(f.read())

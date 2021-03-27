@@ -6,11 +6,6 @@ function Button ({autoControl, onAutoControl}){
     autocontrol()
     onAutoControl(!autoControl);
   };
-  function kachow(){
-    fetch('/time').then(res => res.json()).then(data => {
-      console.log(data.text)
-    });
-  };
   function autocontrol(){
     console.log("HI FROM AUTOCONTROL")
     fetch('/autocontrol').then(res => res.json());
