@@ -1,3 +1,5 @@
+/*Creates the appearance of the container when the blinds are open
+also creates an animation for the container when the state of the blinds are changed*/
 .containerday{
   position: relative;
   transition: background-image 2s;
@@ -11,6 +13,8 @@
   display: flex;
   align-items: center;
 }
+/*Creates the appearance of the container when the blinds are closed
+also creates an animation when the state of the blinds are changed*/
 .containernight{
   position: relative;
   transition: background-image 2s;
@@ -24,6 +28,8 @@
   display: flex;
   align-items: center;
 }
+/*Creates the appearance of the container when autcontrol is active and the open
+and close function are unavailable*/
 .containerdisable{
   position: relative;
   background-color: #222222;
@@ -37,6 +43,8 @@
   align-items: center;
 }
 
+/*Creates the appearance of the button when the blinds are closed
+also creates an animation for the button when the state of the blinds are changed*/
 .nightbutton{
   text-align: center;
   user-select: none;
@@ -59,6 +67,8 @@
   background: #272E38;
   border: 0.7rem solid #272E38;
 }
+/*Creates the appearance of the button when the blinds are open
+also creates an animation for the button when the state of the blinds are changed*/
 .daybutton{
   text-align: center;
   user-select: none;
@@ -81,7 +91,8 @@
   background: #4B7DC1;
   border: 0.7rem solid #4B7DC1;
 }
-
+/*Creates the appearance of the button when autoControl is enabled.
+also creates an animation for the button when the state of the blinds are changed*/
 .disablebutton{
   user-select: none;
   text-align: center;
