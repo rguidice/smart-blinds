@@ -15,7 +15,7 @@ for pin in control_pins:
   GPIO.setup(pin, GPIO.OUT)
   GPIO.output(pin, 0)
   
-halfstep_seq = [
+halfstep_seq_close = [
   [1,0,0,0],
   [1,1,0,0],
   [0,1,0,0],
@@ -26,7 +26,7 @@ halfstep_seq = [
   [1,0,0,1]
 ]
 
-halfstep_seq_close = [
+halfstep_seq_open = [
   [1,0,0,1],
   [0,0,0,1],
   [0,0,1,1],
@@ -74,7 +74,7 @@ def open_b():
   for i in range(1700):
     for halfstep in range(8):
       for pin in range(4):
-        GPIO.output(control_pins[pin], halfstep_seq[halfstep][pin])
+        GPIO.output(control_pins[pin], halfstep_seq_open[halfstep][pin])
       time.sleep(0.0007)
   read()
   return jsonify({})
