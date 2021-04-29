@@ -67,13 +67,6 @@ def rc_time(light_pin):
     # Return value multiplied by 10 to make detectable range wider
     return count * 10
 
-# Helper function to read values from the state file
-def read():
-    f = open("state", "r")
-    value = f.read()
-    print(value)
-    f.close()
-
 # Flask function used for debugging purposes
 @app.route('/time')
 def get_current_time():
@@ -97,8 +90,6 @@ def open_b():
                 GPIO.output(control_pins[pin], halfstep_seq_open[halfstep][pin])
             # 0.0007 seconds determined to give fastest spin without losing torque
             time.sleep(0.0007)
-    ##### CAN POSSIBLY REMOVE? ####
-    read()
     # Return jsonify with empty dict to fulfill React promise
     return jsonify({})
 
@@ -116,7 +107,6 @@ def close_b():
                 # Output GPIO values based on stepper motor close array
                 GPIO.output(control_pins[pin], halfstep_seq_close[halfstep][pin])
             time.sleep(0.0007)
-    read()
     # Return jsonify with empty dict to fulfill React promise
     return jsonify({})
       
@@ -124,14 +114,13 @@ def close_b():
 @app.route('/get_state')    
 def get_state():
     f = open("state", "r")
-    ret = False;
+    ret = False
     value = int(f.read())
     print(value == 1)
     if value == 1:
         ret = True
     f.close()
     print(ret, "HI")
-    read()
     return jsonify(ret)
 	
 # Flask function to manage the autocontrol process
