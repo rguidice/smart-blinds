@@ -116,11 +116,9 @@ def get_state():
     f = open("state", "r")
     ret = False
     value = int(f.read())
-    print(value == 1)
     if value == 1:
         ret = True
     f.close()
-    print(ret, "HI")
     return jsonify(ret)
 	
 # Flask function to manage the autocontrol process
@@ -135,13 +133,10 @@ def autocontrol():
     # Switch the value in autocontrol_state file
     f = open("autocontrol_state", "r")
     value = int(f.read())
-    print("VALUE BEFORE", int(value))
     if(value == 1):
         value = "0"
-    print(int(value) == 0)
     if(value == 0):
         value = "1"
-    print("VALUE AFTER", value)
     f.close()
     f = open("autocontrol_state", "w")
     f.write(value)
@@ -156,19 +151,16 @@ def autocontrol():
         # If the value is set back to 0, then break out
         # This is how we break out of the infinite loop, since the autocontrol UI button in React
         # calls this same function on each press
-        print("VALUE: ", value)
         if(value == 0):
             break
         if(value == 1):
-            print("HERE")
             # Get the current light integer value
             light = rc_time(light_pin)
-            print("LIGHT: ",light)
+            print("Light reading: ",light)
             # Larger light values indicate darker settings
             # Increment count variable if the light reading exceeds determined darkness threshold
             # and it's currently "day" based on the blinds orientation
             if light > 1700 and day_flag == 1:
-                print("Night")
                 count += 1
                 # Once 5 repeated readings occur, close
                 # the blinds. This prevents 1 or 2
@@ -181,7 +173,6 @@ def autocontrol():
             # Same as with night, but opposite values
             # Small difference in light ranges to prevent repeated opening/closing of blinds
             elif light < 1500 and day_flag == 0:
-                print("Day")
                 count += 1
                 if count == 5:
                     print("Opening")

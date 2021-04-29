@@ -2,13 +2,6 @@ import './SlidingButton.css'
 //Imports useState and useEffect from React, this allows use of the statem and effect hooks
 import React, { useState, useEffect } from "react";
 
-  //An asynchronous function to get the state of blinds; whether they are
-  //open or closed
-  async function get_state(){
-    const response = await fetch('/get_state')
-    const strResponse = await response.json();
-    return strResponse;
-  };
   //A function to request the backend to open the blinds
   function open(){
     fetch('/open').then(res => res.json());
@@ -47,9 +40,6 @@ function SlidingButton({autoControl}) {
     },
     [state]
   );
-  const onChange = event => {
-    setActive(event.target.value);
-  };
   //changes the appearance of the button when the button is pressed
   const toggleClass = () => {
     //if the blinds are open, closee is run, if the blinds are closed, open is run
