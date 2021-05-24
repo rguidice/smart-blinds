@@ -160,7 +160,7 @@ def autocontrol():
             # Larger light values indicate darker settings
             # Increment count variable if the light reading exceeds determined darkness threshold
             # and it's currently "day" based on the blinds orientation
-            if light > 1700 and day_flag == 1:
+            if light > 500 and day_flag == 1:
                 count += 1
                 # Once 5 repeated readings occur, close
                 # the blinds. This prevents 1 or 2
@@ -172,7 +172,7 @@ def autocontrol():
                     count = 0
             # Same as with night, but opposite values
             # Small difference in light ranges to prevent repeated opening/closing of blinds
-            elif light < 1500 and day_flag == 0:
+            elif light < 400 and day_flag == 0:
                 count += 1
                 if count == 5:
                     print("Opening")
@@ -180,10 +180,10 @@ def autocontrol():
                     day_flag = 1
                     count = 0
             # Reset count value if it wasn't valid
-            elif light > 1700 and day_flag == 0:
+            elif light > 500 and day_flag == 0:
                 if count != 0:
                     count = 0
-            elif light < 1500 and day_flag == 1:
+            elif light < 400 and day_flag == 1:
                 if count != 0:
                     count = 0
         # Wait 2 seconds between each reading
