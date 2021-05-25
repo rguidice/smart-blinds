@@ -1,3 +1,9 @@
+Dependencies:
+Flask 1.0.2
+If using RPi 3 and up: Node 15.13.0 (ARM7 Version)
+If using RPi 0W: Node 10.24.1 (ARM6 Version)
+Make sure npm is installed with Node, whichever version matches the Node of your device
+
 All important files located in my-app/
 React files located in my-app/
 Flask backend located in my-app/api
